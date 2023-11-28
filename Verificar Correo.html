@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>verificar Correo</title>
+</head>
+<body>
+    <h1>ingresa tu correo!</h1>
+    
+    <form id="emailForm">
+        <label for="email">Ingresa tu correo electronico:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="button" onclick="verificarCorreo()">Enviar</button>
+    </form>
+
+    <!-- Agregar un elemento para mostrar el resultado -->
+    <p id="resultado"></p>
+
+    <script>
+        // Funcion para verificar el correo electronico
+        function verificarCorreo() {
+            // Obtener el valor del correo electronico ingresado
+            var correoUsuario = document.getElementById("email").value;
+
+            // Realizar comprobaciones con el correo electronico
+            if (esCorreoValido(correoUsuario)) {
+                mostrarResultado("¡El correo electronico es valido!");
+                // Acciones adicionales si es necesario
+            } else {
+                mostrarResultado("Por favor, ingresa una direccion de correo valida.");
+            }
+        }
+
+        // Funcion de validacion de correo electronico actualizada
+        function esCorreoValido(correo) {
+            // Expresion regular para validar el correo electronico
+            var regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.(com|com\.mx|mx)$/;
+
+            // Usa la funcion proporcionada para validacion adicional
+            return regexCorreo.test(correo) && esCorreoElectronico(correo);
+        }
+
+        // Funcion original de validacion de correo electronico
+        function esCorreoElectronico(cadena) {
+            // Expresion regular para validar el correo electronico
+            var regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.(com|com\.mx|mx)$/;
+
+            // Verifica si la cadena cumple con la expresion regular
+            return regexCorreo.test(cadena);
+        }
+
+        // Agregar el resultado al final
+        function mostrarResultado(resultado) {
+            var resultadoElemento = document.getElementById("resultado");
+            resultadoElemento.textContent = resultado;
+        }
+    </script>
+</body>
+</html>
