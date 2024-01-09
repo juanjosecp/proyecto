@@ -1,0 +1,60 @@
+function esConsecutivo(arr, n) {
+    let numerosConsecutivos = [];
+    for (let i = 1; i <= n * n; i++) {
+        numerosConsecutivos.push(i);
+    }
+
+    let arregloPlano = arr.flat();
+    arregloPlano.sort((a, b) => a - b);
+
+    return JSON.stringify(arregloPlano) === JSON.stringify(numerosConsecutivos);
+}
+
+function esCuadradoMagico(arr, n) {
+    let sumaPrincipal = 0;
+    let sumaSecundaria = 0;
+
+    for (let i = 0; i < n; i++) {
+        sumaPrincipal += arr[i][i];
+        sumaSecundaria += arr[i][n - i - 1];
+    }
+
+    if (sumaPrincipal !== sumaSecundaria) {
+        return false;
+    }
+
+    for (let i = 0; i < n; i++) {
+        let filaSuma = 0;
+        let columnaSuma = 0;
+
+        for (let j = 0; j < n; j++) {
+            filaSuma += arr[i][j];
+            columnaSuma += arr[j][i];
+        }
+
+        if (filaSuma !== sumaPrincipal || columnaSuma !== sumaPrincipal) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+let n = parseInt(prompt("Inserta el tamaño n:"));
+
+let matriz = [];
+for (let i = 0; i < n; i++) {
+    let fila = prompt(`Fila ${i + 1}:`).split(",").map(Number);
+    matriz.push(fila);
+}
+
+if (esConsecutivo(matriz, n)) {
+    console.log("El arreglo sí tiene números consecutivos.");
+    if (esCuadradoMagico(matriz, n)) {
+        console.log("Y es un cuadrado mágico.");
+    } else {
+        console.log("Pero no es un cuadrado mágico.");
+    }
+} else {
+    console.log("El arreglo no tiene números consecutivos.");
+}

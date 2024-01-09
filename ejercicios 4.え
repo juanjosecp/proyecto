@@ -1,0 +1,28 @@
+function solicitarGanador(equipoA, equipoB) {
+    let ganador = prompt(`a. ${equipoA} - b. ${equipoB}: `).toLowerCase();
+    while (ganador !== 'a' && ganador !== 'b') {
+        ganador = prompt('Por favor, ingrese "a" o "b" como ganador: ').toLowerCase();
+    }
+    return ganador;
+}
+
+function realizarPartido(fase, equipos) {
+    console.log(`${fase}:`);
+    for (let i = 0; i < equipos.length; i += 2) {
+        const ganador = solicitarGanador(equipos[i], equipos[i + 1]);
+        equipos[i / 2] = ganador === 'a' ? equipos[i] : equipos[i + 1];
+    }
+}
+
+
+let equipos = [];
+for (let i = 1; i <= 8; i++) {
+    equipos.push(prompt(`Equipo${i}: `));
+}
+
+realizarPartido('Cuartos', equipos);
+realizarPartido('Semifinales', equipos.slice(0, 2));
+realizarPartido('Finales', equipos.slice(0, 2));
+
+console.log(`El campeón es: ${equipos[0]}`);
+
